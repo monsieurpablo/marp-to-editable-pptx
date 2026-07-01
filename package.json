@@ -37,14 +37,15 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run build:prod",
-    "build": "node src/native-pptx/scripts/generate-dom-walker-script.js && webpack --config webpack.config.js && node scripts/copy-marp-cli-assets.js",
-    "build:prod": "node src/native-pptx/scripts/generate-dom-walker-script.js && webpack --config webpack.config.js --env production && node scripts/copy-marp-cli-assets.js",
+    "build": "webpack --config webpack.config.js && node scripts/copy-marp-cli-assets.js",
+    "build:prod": "webpack --config webpack.config.js --env production && node scripts/copy-marp-cli-assets.js",
     "compile": "tsc --noEmit",
     "test": "jest",
     "watch": "webpack --config webpack.config.js --watch"
   },
   "dependencies": {
     "@marp-team/marp-cli": "^4.3.1",
+    "@monsieurpablo/marp-native-pptx": "^0.1.1",
     "@puppeteer/browsers": "^2.13.0",
     "nanoid": "^5.1.6",
     "pptxgenjs": "^4.0.1",

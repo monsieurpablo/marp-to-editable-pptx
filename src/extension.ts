@@ -10,8 +10,10 @@ import {
   window,
   workspace,
 } from 'vscode'
-import { detectBrowserPath } from './native-pptx/browser'
-import { generateNativePptx } from './native-pptx/index'
+import {
+  detectBrowserPath,
+  generateNativePptx,
+} from '@monsieurpablo/marp-native-pptx'
 
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(

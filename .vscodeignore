@@ -4,3 +4,13 @@ node_modules/
 webpack.config.js
 tsconfig.json
 .gitignore
+.npmrc
+lib/
+scripts/
+output-pptx/
+babel.config.js
+jest.config.js
+jest.setup.js
+**/*.test.*
+*.vsix
+CONTRIBUTING.md

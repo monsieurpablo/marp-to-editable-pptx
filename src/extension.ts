@@ -99,7 +99,23 @@ async function exportCommand(): Promise<void> {
           ...(htmlSetting === 'all' ? ['--html'] : []),
         ]
 
-        const exitCode = await marpCli(marpCliArgs, {})
+        // Marp CLI discovers .marprc.yml / themeSet via cosmiconfig starting
+        // from process.cwd(). In the extension host cwd is not the workspace,
+        // so custom themes and local config are silently ignored (issue #19).
+        // Run the conversion from the Markdown file's directory so config
+        // resolves exactly as `marp` on the CLI would (cosmiconfig also walks
+        // up to the workspace root from there).
+        // ponytail: process-global chdir; safe because the export is awaited
+        // sequentially. Replace with a cwd option if marp-cli ever exposes one
+        // (its programmatic API currently does not).
+        const prevCwd = process.cwd()
+        process.chdir(path.dirname(doc.uri.fsPath))
+        let exitCode: number
+        try {
+          exitCode = await marpCli(marpCliArgs, {})
+        } finally {
+          process.chdir(prevCwd)
+        }
 
         if (exitCode !== 0) {
           throw new Error(`Marp CLI exited with code ${exitCode}`)
